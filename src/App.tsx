@@ -1,9 +1,15 @@
+// src/App.tsx
+import React from 'react';
+import Navbar from './components/Navbar';
+
 function App() {
   return (
-    <div className="container mt-5">
-      <h1 className="text-primary">Hello, Railway + Bootstrap + Vite!</h1>
-      <p>Looks like everything's working 🎉</p>
-    </div>
+    <>
+      <Navbar />
+      <div className="container mt-4">
+        <h1>Welcome to Minimal Bootstrap App</h1>
+      </div>
+    </>
   );
 }
 
