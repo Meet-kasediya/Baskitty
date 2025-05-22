@@ -23,6 +23,7 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showThankYou, setShowThankYou] = useState(false);
  
   // Add item to cart
   function onAddToCart(item: typeof cardData[0]) {
@@ -55,7 +56,22 @@ function App() {
         .filter(ci => ci.quantity > 0)
     );
   }
+  function onRemoveItem(title: string) {
+    setCartItems(prev => prev.filter(ci => ci.title !== title));
+  }
 
+  function onClearCart() {
+    setCartItems([]);
+  }
+function onCheckout() {
+  setCartItems([]);
+  setShowThankYou(true);
+
+  setTimeout(() => {
+    setIsCartOpen(false);
+    setShowThankYou(false);
+  }, 3000); // Close modal after 3 seconds
+}
   // Filter items by search and category
   const filteredItems = cardData.filter(item => {
     const matchesCategory = selectedCategory ? item.category === selectedCategory : true;
@@ -97,14 +113,18 @@ function App() {
       <Footer />
 
 
-    {isCartOpen && (
-      <CartModal
-        cartItems={cartItems}
-        onClose={() => setIsCartOpen(false)}
-        onIncrement={onIncrement}
-        onDecrement={onDecrement}
-      />
-    )}
+      {isCartOpen && (
+        <CartModal
+          cartItems={cartItems}
+          onClose={() => setIsCartOpen(false)}
+          onIncrement={onIncrement}
+          onDecrement={onDecrement}
+          onRemoveItem={onRemoveItem}
+          onClearCart={onClearCart}
+          onCheckout={onCheckout}
+          showThankYou={showThankYou}
+        />
+      )}
   </>
   );
 }
