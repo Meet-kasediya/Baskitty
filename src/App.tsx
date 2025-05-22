@@ -1,12 +1,13 @@
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
+import Features from "./components/Features";
+import Hero from "./components/Hero";
 
 function App() {
   return (
     <>
       <Navbar />
-      <div className="container mt-4">
-        <h1>Welcome to Minimal Bootstrap App</h1>
-      </div>
+      <Hero />
+      <Features />
     </>
   );
 }
