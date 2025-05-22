@@ -1,5 +1,5 @@
 import Card from './Card';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 interface Item {
   title: string;

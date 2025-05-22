@@ -1,5 +1,4 @@
-import { FC } from 'react';
-
+import type { FC } from 'react';
 interface CategoryFilterProps {
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
