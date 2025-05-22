@@ -22,9 +22,9 @@ function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
-
-const [searchTerm, setSearchTerm] = useState('');
-const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  
   // Add item to cart
   function onAddToCart(item: typeof cardData[0]) {
     setCartItems(prev => {
@@ -57,18 +57,22 @@ const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
     );
   }
 
-const filteredItems = selectedCategory
-  ? cardData.filter(item => item.category === selectedCategory)
-  : cardData;
+  // Filter items by search and category
+  const filteredItems = cardData.filter(item => {
+    const matchesCategory = selectedCategory ? item.category === selectedCategory : true;
+    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
   return (
     <>
-<Navbar
-  onCartClick={() => setIsCartOpen(true)}
-  cartCount={cartItems.length}     // if still needed
-  searchTerm={searchTerm}
-  setSearchTerm={setSearchTerm}
-  totalItems={totalItems}
-/>
+      <Navbar
+        onCartClick={() => setIsCartOpen(true)}
+        cartCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        totalItems={cartItems.length}
+      />
+
       <Carousel />
 
 <CategoryFilter
