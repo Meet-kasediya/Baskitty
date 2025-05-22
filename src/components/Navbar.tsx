@@ -36,7 +36,7 @@ const Navbar: FC<NavbarProps> = ({ searchTerm, setSearchTerm, totalItems, onCart
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button className="btn" type="submit">
-              <img src="./paw.png" className="header" alt="Search" />
+              <img src="./paw.png" style={{height: '30px'}} alt="Search" />
             </button>
           </form>
 
