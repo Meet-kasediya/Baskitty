@@ -14,7 +14,7 @@ const Navbar: FC<NavbarProps> = ({ searchTerm, setSearchTerm, totalItems, onCart
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          <img src="./header.png" alt="BASKITTY" className="header" />
+          <img src="./header.png" alt="BASKITTY" style={{height: '30px'}} />
         </a>
         <button
           className="navbar-toggler"
