@@ -1,6 +1,6 @@
 export default function WhyShopWithUs() {
   return (
-<section className="bg-light py-5">
+<section className="bg-light py-4 mt-0">
   <div className="container text-center">
     <h3 className="mb-4">Why Shop With Us?</h3>
     <div className="row">

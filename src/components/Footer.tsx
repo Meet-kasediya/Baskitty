@@ -1,6 +1,7 @@
 export default function Footer() {
   return (
-<footer className="text-center py-4 mt-2" style={{ backgroundColor: '#fff1f5', borderTop: '2px dashed #ffb3c6' }}>
+
+<footer className="text-center py-3 mt-0" style={{ backgroundColor: '#fff1f5', borderTop: '2px dashed #ffb3c6' }}>
   <p className="mb-1" style={{ fontSize: '1rem' }}>
     🐾 Made with purrfection by  
     <a
