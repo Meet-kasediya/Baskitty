@@ -28,10 +28,11 @@ const CartModal: FC<CartModalProps> = ({
   onCheckout,
   showThankYou,
 }) => {
-  const totalCost = cartItems.reduce(
-    (sum, item) => sum + item.quantity * parseFloat(item.cost),
-    0
-  );
+const totalCost = cartItems.reduce((sum, item) => {
+  // Remove any non-digit or non-dot characters (like $)
+  const cleanCost = parseFloat(item.cost.replace(/[^0-9.]/g, ''));
+  return sum + item.quantity * (isNaN(cleanCost) ? 0 : cleanCost);
+}, 0);
 
   return (
     <div className="modal-backdrop">
@@ -59,7 +60,7 @@ const CartModal: FC<CartModalProps> = ({
                   />
                   <div className="flex-grow-1">
                     <strong>{item.title}</strong> - ${item.cost} x {item.quantity}
-                    <div>Total: ${(parseFloat(item.cost) * item.quantity).toFixed(2)}</div>
+                    <div> Total: ${ (item.quantity * (parseFloat(item.cost.replace(/[^0-9.]/g, '')) || 0)).toFixed(2) }</div>
                     <div className="btn-group mt-1">
                       <button
                         className="btn btn-sm btn-secondary"
