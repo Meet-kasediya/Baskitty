@@ -1,89 +1,81 @@
 import { useState } from 'react';
-import Navbar from './components/Navbar';
-import Carousel from './components/Carousel';
-import About from './components/About';
-import CategoryFilter from './components/CategoryFilter';
+
 import CardsGrid from './components/CardsGrid';
-import WhyShopWithUs from './components/WhyShopWithUs';
-import Footer from './components/Footer';
 import CartModal from './components/CartModal';
 import { cardData } from './data/groceryItems';
 
-export default function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [cartItems, setCartItems] = useState<{ title: string; quantity: number }[]>([]);
-  const [showCart, setShowCart] = useState(false);
+interface CartItem {
+  title: string;
+  quantity: number;
+  cost: string;
+  img: string;
+}
 
-  const filteredItems = cardData.filter(({ title, category }) => {
-    const matchesSearch = title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+function App() {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
-  const addToCart = (item: { title: string }) => {
-    setCartItems((prev) => {
-      const existing = prev.find((i) => i.title === item.title);
+  // Add item to cart
+  function onAddToCart(item: typeof cardData[0]) {
+    setCartItems(prev => {
+      const existing = prev.find(ci => ci.title === item.title);
       if (existing) {
-        return prev.map((i) =>
-          i.title === item.title ? { ...i, quantity: i.quantity + 1 } : i
+        return prev.map(ci =>
+          ci.title === item.title ? { ...ci, quantity: ci.quantity + 1 } : ci
         );
+      } else {
+        return [...prev, { title: item.title, quantity: 1, cost: item.cost, img: item.img }];
       }
-      return [...prev, { title: item.title, quantity: 1 }];
     });
-  };
+  }
 
-  const incrementQuantity = (title: string) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.title === title ? { ...item, quantity: item.quantity + 1 } : item
+  function onIncrement(title: string) {
+    setCartItems(prev =>
+      prev.map(ci =>
+        ci.title === title ? { ...ci, quantity: ci.quantity + 1 } : ci
       )
     );
-  };
+  }
 
-  const decrementQuantity = (title: string) => {
-    setCartItems((prev) =>
+  function onDecrement(title: string) {
+    setCartItems(prev =>
       prev
-        .map((item) =>
-          item.title === title ? { ...item, quantity: item.quantity - 1 } : item
+        .map(ci =>
+          ci.title === title ? { ...ci, quantity: Math.max(ci.quantity - 1, 0) } : ci
         )
-        .filter((item) => item.quantity > 0)
+        .filter(ci => ci.quantity > 0)
     );
-  };
+  }
+
+  // Prepare cartItems with img — actually already done in add/increment/decrement above
+  // If your cartItems don’t have img for some reason, you can map here:
+  // const cartItemsWithImg = cartItems.map(cartItem => {
+  //   const product = cardData.find(item => item.title === cartItem.title);
+  //   return {...cartItem, img: product ? product.img : ''};
+  // });
 
   return (
     <>
-      <Navbar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        totalItems={totalItems}
-        onCartClick={() => setShowCart(true)}
-      />
-      <Carousel />
-      <About />
-      <CategoryFilter selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
+      <button onClick={() => setIsCartOpen(true)}>Open Cart ({cartItems.length})</button>
+
       <CardsGrid
-        items={filteredItems}
+        items={cardData}
         cartItems={cartItems}
-        onAddToCart={addToCart}
-        onIncrement={incrementQuantity}
-        onDecrement={decrementQuantity}
+        onAddToCart={onAddToCart}
+        onIncrement={onIncrement}
+        onDecrement={onDecrement}
       />
-      <WhyShopWithUs />
-      <Footer />
-      {showCart && (
+
+      {isCartOpen && (
         <CartModal
-          cartItems={cartItems.map((cartItem) => {
-            const item = cardData.find((card) => card.title === cartItem.title);
-            return { ...cartItem, cost: item?.cost || '' };
-          })}
-          onClose={() => setShowCart(false)}
-          onIncrement={incrementQuantity}
-          onDecrement={decrementQuantity}
+          cartItems={cartItems}
+          onClose={() => setIsCartOpen(false)}
+          onIncrement={onIncrement}
+          onDecrement={onDecrement}
         />
       )}
     </>
   );
 }
+
+export default App;

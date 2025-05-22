@@ -1,9 +1,10 @@
 import type { FC } from 'react';
 
-interface CartItem {
+export interface CartItem {
   title: string;
   quantity: number;
   cost: string;
+  img: string;
 }
 
 interface CartModalProps {
@@ -14,52 +15,33 @@ interface CartModalProps {
 }
 
 const CartModal: FC<CartModalProps> = ({ cartItems, onClose, onIncrement, onDecrement }) => {
-  const total = cartItems.reduce((acc, item) => {
-    const cost = parseFloat(item.cost.replace(/[^0-9.]/g, ''));
-    return acc + cost * item.quantity;
+  // Calculate total price per item and overall total
+  const totalPrice = cartItems.reduce((acc, item) => {
+    // Convert cost string to number, assuming format like "$10"
+    const costNumber = parseFloat(item.cost.replace(/[^0-9.-]+/g, ''));
+    return acc + costNumber * item.quantity;
   }, 0);
 
   return (
-    <div className="modal show d-block" tabIndex={-1} role="dialog" aria-modal="true" aria-labelledby="cartModalLabel">
-      <div className="modal-dialog modal-dialog-centered" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="cartModalLabel">Your Cart</h5>
-            <button type="button" className="btn-close" onClick={onClose} aria-label="Close"></button>
+    <div className="modal-overlay">
+      <div className="modal-content">
+        <button onClick={onClose}>Close</button>
+        <h2>Your Cart</h2>
+        {cartItems.length === 0 && <p>Your cart is empty.</p>}
+        {cartItems.map(item => (
+          <div key={item.title} className="cart-item" style={{ display: 'flex', alignItems: 'center', marginBottom: 10 }}>
+            <img src={item.img} alt={item.title} style={{ width: 60, height: 60, objectFit: 'cover', marginRight: 10 }} />
+            <div style={{ flexGrow: 1 }}>
+              <h4>{item.title}</h4>
+              <p>Unit Price: {item.cost}</p>
+              <p>Quantity: {item.quantity}</p>
+              <p>Total: ${(parseFloat(item.cost.replace(/[^0-9.-]+/g, '')) * item.quantity).toFixed(2)}</p>
+              <button onClick={() => onIncrement(item.title)}>+</button>
+              <button onClick={() => onDecrement(item.title)}>-</button>
+            </div>
           </div>
-          <div className="modal-body">
-            {cartItems.length === 0 ? (
-              <p>Your cart is empty.</p>
-            ) : (
-              <ul className="list-group">
-                {cartItems.map((item) => (
-                  <li key={item.title} className="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                      <strong>{item.title}</strong> x {item.quantity}
-                    </div>
-                    <div>
-                      <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => onDecrement(item.title)}>
-                        –
-                      </button>
-                      <button className="btn btn-sm btn-outline-secondary" onClick={() => onIncrement(item.title)}>
-                        +
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div className="modal-footer">
-            <h5 className="me-auto">Total: ${total.toFixed(2)}</h5>
-            <button type="button" className="btn btn-secondary" onClick={onClose}>
-              Close
-            </button>
-            <button type="button" className="btn btn-primary" disabled={cartItems.length === 0}>
-              Checkout
-            </button>
-          </div>
-        </div>
+        ))}
+        <h3>Total: ${totalPrice.toFixed(2)}</h3>
       </div>
     </div>
   );
