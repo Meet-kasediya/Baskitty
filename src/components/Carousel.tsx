@@ -1,7 +1,14 @@
 import { useEffect } from 'react';
-import { cardData } from '../data/groceryItems';
+import { cardData as groceryItems } from '../data/groceryItems';
 
 const bootstrap = (window as any).bootstrap;
+
+interface Item {
+  title: string;
+  cost: string;
+  img: string;
+  category: string;
+}
 
 export default function Carousel() {
   useEffect(() => {
@@ -22,7 +29,7 @@ export default function Carousel() {
       data-bs-interval="3000"
     >
       <div className="carousel-inner">
-        {cardData.map((item, index) => (
+        {groceryItems.map((item: Item, index: number) => (
           <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
             <img
               src={item.img}

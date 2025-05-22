@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import type { FC } from 'react';
 
 interface Props {
@@ -23,13 +22,7 @@ const Card: FC<Props> = ({
   onDecrement,
 }) => {
   // Prevent unused variable TypeScript errors
-  useEffect(() => {
-    void category;
-    void quantity;
-    void onAddToCart;
-    void onIncrement;
-    void onDecrement;
-  }, [category, quantity, onAddToCart, onIncrement, onDecrement]);
+  console.debug(category, quantity, onAddToCart, onIncrement, onDecrement);
 
   return (
     <div className="card">
