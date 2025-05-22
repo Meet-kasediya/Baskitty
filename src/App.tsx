@@ -23,8 +23,7 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState('');
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  
+ 
   // Add item to cart
   function onAddToCart(item: typeof cardData[0]) {
     setCartItems(prev => {
@@ -67,7 +66,8 @@ function App() {
     <>
       <Navbar
         onCartClick={() => setIsCartOpen(true)}
-        cartCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+      cartCount={cartItems.reduce((sum, item) => sum + item.quantity, 0)} // inline instead of totalItems
+      
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         totalItems={cartItems.length}
