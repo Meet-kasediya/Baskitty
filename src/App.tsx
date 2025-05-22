@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import About from './components/About';
 import Carousel from './components/Carousel';
 import CardsGrid from './components/CardsGrid';
 import CartModal from './components/CartModal';
@@ -100,7 +99,6 @@ const filteredItems = cardData.filter(item => {
 
 <div className="text-center my-4">
   <h2 className="display-6 fw-bold">
-    <img src="/paw.png" width={32} className="me-2" alt="Paw" />
     What's in Your Basket Today?
   </h2>
 </div>
@@ -123,7 +121,7 @@ const filteredItems = cardData.filter(item => {
       />
       <WhyShopWithUs />
 
-      <About />
+ 
 
       <Footer />
 

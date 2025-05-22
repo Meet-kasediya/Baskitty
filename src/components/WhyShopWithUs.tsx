@@ -1,13 +1,26 @@
 export default function WhyShopWithUs() {
   return (
-    <section className="container my-5">
-      <h2 className="text-center mb-4">Why Shop With Us?</h2>
-      <ul>
-        <li>Freshest produce sourced daily</li>
-        <li>Fast and reliable delivery</li>
-        <li>Competitive prices and great deals</li>
-        <li>Friendly customer support</li>
-      </ul>
-    </section>
+<section className="bg-light py-5">
+  <div className="container text-center">
+    <h3 className="mb-4">Why Shop With Us?</h3>
+    <div className="row">
+      <div className="col-md-4">
+        <i className="bi bi-truck fs-1 text-success"></i>
+        <h5 className="mt-3">Fast Delivery</h5>
+        <p>Same-day delivery across the city — no delays!</p>
+      </div>
+      <div className="col-md-4">
+        <i className="bi bi-basket fs-1 text-warning"></i>
+        <h5 className="mt-3">Fresh Picks</h5>
+        <p>We source directly from local farms to your basket.</p>
+      </div>
+      <div className="col-md-4">
+        <i className="bi bi-credit-card-2-back fs-1 text-primary"></i>
+        <h5 className="mt-3">Easy Checkout</h5>
+        <p>Secure payments and a smooth checkout experience.</p>
+      </div>
+    </div>
+  </div>
+</section>
   );
 }
