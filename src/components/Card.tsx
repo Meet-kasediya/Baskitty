@@ -42,7 +42,7 @@ const Card: FC<Props> = ({
             </button>
           </div>
         ) : (
-          <button className="btn btn-primary mt-2" onClick={onAddToCart}>
+          <button className="btn btn-success rounded-pill px-4 py-2 shadow-sm" onClick={onAddToCart}>
             Add to Cart
           </button>
         )}
