@@ -1,7 +1,14 @@
 import { useState } from 'react';
 
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import About from './components/About';
+import Carousel from './components/Carousel';
 import CardsGrid from './components/CardsGrid';
 import CartModal from './components/CartModal';
+import CategoryFilter from './components/CategoryFilter';
+import WhyShopWithUs from './components/WhyShopWithUs';
+
 import { cardData } from './data/groceryItems';
 
 interface CartItem {
@@ -14,7 +21,10 @@ interface CartItem {
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
+const [searchTerm, setSearchTerm] = useState('');
+const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   // Add item to cart
   function onAddToCart(item: typeof cardData[0]) {
     setCartItems(prev => {
@@ -47,34 +57,51 @@ function App() {
     );
   }
 
-  // Prepare cartItems with img — actually already done in add/increment/decrement above
-  // If your cartItems don’t have img for some reason, you can map here:
-  // const cartItemsWithImg = cartItems.map(cartItem => {
-  //   const product = cardData.find(item => item.title === cartItem.title);
-  //   return {...cartItem, img: product ? product.img : ''};
-  // });
-
+const filteredItems = selectedCategory
+  ? cardData.filter(item => item.category === selectedCategory)
+  : cardData;
   return (
     <>
-      <button onClick={() => setIsCartOpen(true)}>Open Cart ({cartItems.length})</button>
+<Navbar
+  onCartClick={() => setIsCartOpen(true)}
+  cartCount={cartItems.length}     // if still needed
+  searchTerm={searchTerm}
+  setSearchTerm={setSearchTerm}
+  totalItems={totalItems}
+/>
+      <Carousel />
 
+<CategoryFilter
+  categories={[...new Set(cardData.map(item => item.category))]}
+  selectedCategory={selectedCategory || ''}
+  onCategorySelect={setSelectedCategory}
+/>
+
+
+      {/* Cards grid shows filtered items */}
       <CardsGrid
-        items={cardData}
+        items={filteredItems}
         cartItems={cartItems}
         onAddToCart={onAddToCart}
         onIncrement={onIncrement}
         onDecrement={onDecrement}
       />
+      <WhyShopWithUs />
 
-      {isCartOpen && (
-        <CartModal
-          cartItems={cartItems}
-          onClose={() => setIsCartOpen(false)}
-          onIncrement={onIncrement}
-          onDecrement={onDecrement}
-        />
-      )}
-    </>
+      <About />
+
+      <Footer />
+
+
+    {isCartOpen && (
+      <CartModal
+        cartItems={cartItems}
+        onClose={() => setIsCartOpen(false)}
+        onIncrement={onIncrement}
+        onDecrement={onDecrement}
+      />
+    )}
+  </>
   );
 }
 

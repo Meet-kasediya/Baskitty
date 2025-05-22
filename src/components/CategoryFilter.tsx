@@ -1,27 +1,26 @@
 import type { FC } from 'react';
+
 interface CategoryFilterProps {
+  categories: string[];
   selectedCategory: string;
-  onCategoryChange: (category: string) => void;
+  onCategorySelect: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const categories = [
-  { key: 'All', label: 'All' },
-  { key: 'Fruits', label: '🍓 Fruits' },
-  { key: 'Veggies', label: '🥦 Veggies' },
-];
-
-const CategoryFilter: FC<CategoryFilterProps> = ({ selectedCategory, onCategoryChange }) => {
+const CategoryFilter: FC<CategoryFilterProps> = ({ categories, selectedCategory, onCategorySelect }) => {
   return (
-    <div className="d-flex justify-content-center gap-4 my-4">
-      {categories.map(({ key, label }) => (
-        <button
-          key={key}
-          className={`btn rounded-pill px-3 py-2 ${selectedCategory === key ? 'btn-success' : 'btn-outline-success'}`}
-          onClick={() => onCategoryChange(key)}
-        >
-          {label}
-        </button>
-      ))}
+    <div className="category-filter mb-3">
+      <select
+        className="form-select"
+        value={selectedCategory}
+        onChange={e => onCategorySelect(e.target.value)}
+      >
+        <option value="">All Categories</option>
+        {categories.map(category => (
+          <option key={category} value={category}>
+            {category}
+          </option>
+        ))}
+      </select>
     </div>
   );
 };

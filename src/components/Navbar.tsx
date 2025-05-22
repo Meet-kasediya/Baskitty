@@ -1,11 +1,13 @@
 import type { FC } from 'react';
 
 interface NavbarProps {
-  searchTerm: string;
-  setSearchTerm: (term: string) => void;
-  totalItems: number;
   onCartClick: () => void;
+  cartCount: number;        // if your Navbar uses this
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  totalItems: number;
 }
+
 
 const Navbar: FC<NavbarProps> = ({ searchTerm, setSearchTerm, totalItems, onCartClick }) => {
   return (
