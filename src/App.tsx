@@ -21,7 +21,8 @@ interface CartItem {
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+const [selectedCategory, setSelectedCategory] = useState<string>('All');
+
   const [searchTerm, setSearchTerm] = useState('');
   const [showThankYou, setShowThankYou] = useState(false);
  
@@ -72,12 +73,11 @@ function onCheckout() {
     setShowThankYou(false);
   }, 3000); // Close modal after 3 seconds
 }
-  // Filter items by search and category
-  const filteredItems = cardData.filter(item => {
-    const matchesCategory = selectedCategory ? item.category === selectedCategory : true;
-    const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+const filteredItems = cardData.filter(item => {
+  const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
+  const matchesSearch = item.title.toLowerCase().includes(searchTerm.toLowerCase());
+  return matchesCategory && matchesSearch;
+});
   return (
     <>
       <Navbar
@@ -93,9 +93,10 @@ function onCheckout() {
 
 <CategoryFilter
   categories={[...new Set(cardData.map(item => item.category))]}
-  selectedCategory={selectedCategory || ''}
+  selectedCategory={selectedCategory}
   onCategorySelect={setSelectedCategory}
 />
+
 
 
       {/* Cards grid shows filtered items */}

@@ -3,24 +3,30 @@ import type { FC } from 'react';
 interface CategoryFilterProps {
   categories: string[];
   selectedCategory: string;
-  onCategorySelect: React.Dispatch<React.SetStateAction<string>>;
+  onCategorySelect: (category: string) => void;
 }
 
 const CategoryFilter: FC<CategoryFilterProps> = ({ categories, selectedCategory, onCategorySelect }) => {
   return (
-    <div className="category-filter mb-3">
-      <select
-        className="form-select"
-        value={selectedCategory}
-        onChange={e => onCategorySelect(e.target.value)}
+    <div className="d-flex gap-2 flex-wrap mb-3">
+      <button
+        type="button"
+        className={`btn btn-sm ${selectedCategory === 'All' ? 'btn-primary' : 'btn-outline-primary'}`}
+        onClick={() => onCategorySelect('All')}
       >
-        <option value="">All Categories</option>
-        {categories.map(category => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
+        All
+      </button>
+
+      {categories.map((category) => (
+        <button
+          key={category}
+          type="button"
+          className={`btn btn-sm ${selectedCategory === category ? 'btn-primary' : 'btn-outline-primary'}`}
+          onClick={() => onCategorySelect(category)}
+        >
+          {category}
+        </button>
+      ))}
     </div>
   );
 };
