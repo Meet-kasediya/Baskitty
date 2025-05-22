@@ -1,32 +1,39 @@
 import type { FC } from 'react';
 
 interface CategoryFilterProps {
-  categories: string[];
   selectedCategory: string;
   onCategorySelect: (category: string) => void;
 }
 
-const CategoryFilter: FC<CategoryFilterProps> = ({ categories, selectedCategory, onCategorySelect }) => {
+const CategoryFilter: FC<CategoryFilterProps> = ({ selectedCategory, onCategorySelect }) => {
   return (
-    <div className="d-flex gap-2 flex-wrap mb-3">
+    <div className="d-flex justify-content-center gap-4 my-4 flex-wrap">
       <button
-        type="button"
-        className={`btn btn-sm ${selectedCategory === 'All' ? 'btn-primary' : 'btn-outline-primary'}`}
+        className={`btn rounded-pill px-3 py-2 ${
+          selectedCategory === 'All' ? 'btn-success' : 'btn-outline-success'
+        }`}
         onClick={() => onCategorySelect('All')}
       >
         All
       </button>
 
-      {categories.map((category) => (
-        <button
-          key={category}
-          type="button"
-          className={`btn btn-sm ${selectedCategory === category ? 'btn-primary' : 'btn-outline-primary'}`}
-          onClick={() => onCategorySelect(category)}
-        >
-          {category}
-        </button>
-      ))}
+      <button
+        className={`btn rounded-pill px-3 py-2 ${
+          selectedCategory === 'Fruits' ? 'btn-success' : 'btn-outline-success'
+        }`}
+        onClick={() => onCategorySelect('Fruits')}
+      >
+        🍓 Fruits
+      </button>
+
+      <button
+        className={`btn rounded-pill px-3 py-2 ${
+          selectedCategory === 'Veggies' ? 'btn-success' : 'btn-outline-success'
+        }`}
+        onClick={() => onCategorySelect('Veggies')}
+      >
+        🥦 Veggies
+      </button>
     </div>
   );
 };
