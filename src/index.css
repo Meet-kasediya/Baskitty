@@ -45,13 +45,13 @@ body {
 }
 
 * {
-  cursor: url('/stay_48x48.png'), auto !important;
+  cursor: url('/stay_48x48.png') 24 24, auto !important;
 }
-
 
 *:active {
-  cursor: url('/bite_48x48.png'), auto !important;
+  cursor: url('/bite_48x48.png') 24 24, auto !important;
 }
+
 .card {
   border: none;
   border-radius: 1.5rem;
