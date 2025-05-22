@@ -7,3 +7,111 @@
 .slide.active {
   display: block;
 }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  row-gap: 10px;    
+  column-gap: 15px; 
+  padding: 20px;
+}
+.header{height: 30px}
+
+.carousel img {
+  max-height: 400px;
+  object-fit: cover;
+}
+.carousel-container {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  margin-bottom: 2rem;
+}
+ .carousel-item img {
+  animation: zoomFade 10s ease-in-out infinite;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+@keyframes zoomFade {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.95; }
+}
+body {
+  font-family: 'Fredoka', sans-serif;
+  background-color: #fff8f4;
+  color: #333;
+ 
+}
+
+* {
+  cursor: url('/stay_48x48.png'), auto !important;
+}
+
+
+*:active {
+  cursor: url('/bite_48x48.png'), auto !important;
+}
+.card {
+  border: none;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease-in-out;
+}
+ 
+
+button.transition {
+  transition: all 0.3s ease;
+}
+button.transition:hover {
+  background-color: #c5f2d0;
+  transform: scale(1.05);
+}
+.card:hover {
+
+  transform: translateY(-8px) scale(1.02);
+
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+.paw-track {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  animation: movePaws 2s infinite;
+}
+
+.paw-print {
+  width: 48px;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: pawFade 1.2s ease-in-out infinite;
+}
+
+.delay-1 {
+  animation-delay: 0.2s;
+}
+.delay-2 {
+  animation-delay: 0.4s;
+}
+.delay-3 {
+  animation-delay: 0.6s;
+}
+
+@keyframes pawFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.8);
+  }
+}
