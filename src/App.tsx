@@ -141,7 +141,7 @@ if (isLoading) {
         {[...Array(2)].map((_, i) => (
           <img
             key={i}
-            src="/paw.png"
+            src="/paws.png"
             alt="paw"
             className="paw"
             style={{ animationDelay: `${i * 0.3}s` }}
