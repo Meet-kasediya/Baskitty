@@ -173,7 +173,7 @@ if (isLoading) {
       </section>
 
       <div className="text-center my-4">
-        <h2 className="display-6 fw-bold">
+        <h2 className="display-7 fw-bold">
           What's in Your Basket Today?
         </h2>
       </div>

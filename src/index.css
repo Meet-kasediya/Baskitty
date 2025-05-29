@@ -231,3 +231,24 @@ button.transition:hover {
   box-shadow: none;
   border-color: initial;
 }
+/* Default: bottom-right */
+.toast.position-fixed {
+  bottom: 1rem !important;
+  right: 1rem !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  max-width: 320px;
+}
+
+/* On small screens: horizontally centered near bottom */
+@media (max-width: 576px) {
+  .toast.position-fixed {
+    bottom: 1rem !important;       /* same distance from bottom */
+    left: 50% !important;          /* center horizontally */
+    right: auto !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;  /* center horizontally */
+    max-width: 90vw;
+  }
+}
