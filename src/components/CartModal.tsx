@@ -43,10 +43,14 @@ const totalCost = cartItems.reduce((sum, item) => {
         </div>
         <div className="modal-body">
           {showThankYou ? (
-            <div className="text-center p-4">
-              <h4>🎉 Thank you for your purchase!</h4>
-              <p>Your order has been placed successfully.</p>
-            </div>
+<div
+  className="d-flex flex-column justify-content-center align-items-center p-5"
+  style={{ minHeight: '200px' }}
+>
+  <h4 className="mb-2">🎉 Thank you for your purchase!</h4>
+  <p>Your order has been placed successfully.</p>
+</div>
+
           ) : cartItems.length === 0 ? (
             <p>Your cart is empty.</p>
           ) : (

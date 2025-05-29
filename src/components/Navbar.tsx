@@ -48,11 +48,11 @@ const Navbar: FC<NavbarProps> = ({
           className={`collapse navbar-collapse${!isNavCollapsed ? ' show' : ''}`}
           id="navbarSupportedContent"
         >
-          {/* Search form */}
+
           <form
             className="d-flex flex-column flex-lg-row w-100 me-lg-3 mb-3 mb-lg-0"
             onSubmit={(e) => e.preventDefault()}
-            onClick={closeNavbar} // close navbar on mobile after search clicked
+            onClick={closeNavbar} 
           >
             <input
               className="form-control me-lg-2 mb-2 mb-lg-0"
@@ -73,7 +73,7 @@ const Navbar: FC<NavbarProps> = ({
               className="btn position-relative"
               onClick={() => {
                 onCartClick();
-                closeNavbar(); // close navbar on mobile after cart clicked
+                closeNavbar(); 
               }}
               aria-label={`Cart with ${totalItems} items`}
             >
