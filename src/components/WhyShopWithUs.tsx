@@ -1,6 +1,7 @@
 export default function WhyShopWithUs() {
   return (
-<section className="bg-light py-5">
+<section className="py-5">
+  {/*<img src='svgbg.png' />*/}
   <div className="container text-center">
     <h3 className="mb-4">Why Shop With Us?</h3>
     <div className="row">
@@ -22,5 +23,6 @@ export default function WhyShopWithUs() {
     </div>
   </div>
 </section>
+
   );
 }

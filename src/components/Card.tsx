@@ -22,7 +22,7 @@ const Card: FC<Props> = ({
   onDecrement,
 }) => {
   return (
-    <div className="card h-100">
+    <div className="card glass-card h-100">
       <img src={img} alt={title} className="card-img-top" style={{ height: '200px', objectFit: 'cover' }} />
       <div className="card-body d-flex flex-column justify-content-between">
         <div>

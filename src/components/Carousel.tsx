@@ -37,10 +37,6 @@ export default function Carousel() {
               alt={item.title}
               style={{ maxHeight: '500px', objectFit: 'cover', width: '100%' }}
             />
-            <div className="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
-              <h5>{item.title}</h5>
-              <p>{item.cost}</p>
-            </div>
           </div>
         ))}
       </div>
