@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { FC } from 'react';
 
 interface NavbarProps {
@@ -14,8 +15,19 @@ const Navbar: FC<NavbarProps> = ({
   totalItems,
   onCartClick,
 }) => {
+  // true means collapsed (closed)
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const handleToggle = () => {
+    setIsNavCollapsed(!isNavCollapsed);
+  };
+
+  const closeNavbar = () => {
+    setIsNavCollapsed(true);
+  };
+
   return (
-<nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
           <img src="./header.png" alt="BASKITTY" style={{ height: '30px' }} />
@@ -24,20 +36,23 @@ const Navbar: FC<NavbarProps> = ({
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
-          aria-expanded="false"
+          aria-expanded={!isNavCollapsed}
           aria-label="Toggle navigation"
+          onClick={handleToggle}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {/* Use flex-column on small screens, flex-row on larger */}
+        <div
+          className={`collapse navbar-collapse${!isNavCollapsed ? ' show' : ''}`}
+          id="navbarSupportedContent"
+        >
+          {/* Search form */}
           <form
             className="d-flex flex-column flex-lg-row w-100 me-lg-3 mb-3 mb-lg-0"
             onSubmit={(e) => e.preventDefault()}
+            onClick={closeNavbar} // close navbar on mobile after search clicked
           >
             <input
               className="form-control me-lg-2 mb-2 mb-lg-0"
@@ -56,7 +71,10 @@ const Navbar: FC<NavbarProps> = ({
 
             <button
               className="btn position-relative"
-              onClick={onCartClick}
+              onClick={() => {
+                onCartClick();
+                closeNavbar(); // close navbar on mobile after cart clicked
+              }}
               aria-label={`Cart with ${totalItems} items`}
             >
               <i className="bi bi-cart fs-5"></i>
